@@ -35,6 +35,7 @@ public class AppTest {
 
   @Test
   public void test() {
+    // test
     App.main(null);
   }
 }
