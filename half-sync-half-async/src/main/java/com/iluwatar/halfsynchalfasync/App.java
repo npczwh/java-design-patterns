@@ -146,7 +146,6 @@ public class App {
 
   private static long ap(long i) {
     try {
-      // test
       Thread.sleep(i);
     } catch (InterruptedException e) {
       LOGGER.error("Exception caught.", e);
