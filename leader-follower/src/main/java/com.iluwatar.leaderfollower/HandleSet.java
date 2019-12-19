@@ -28,23 +28,20 @@ import java.util.concurrent.BlockingQueue;
 
 /**
  * The {@link HandleSet} class. All work arrive here, workers receive work from here.
- *
- * @author amit
- *
  */
 public class HandleSet {
 
-    private BlockingQueue<Work> queue = new ArrayBlockingQueue<>(100);
+  private BlockingQueue<Work> queue = new ArrayBlockingQueue<>(100);
 
-    public void fireEvent(Work input) throws InterruptedException {
-        queue.put(input);
-    }
+  public void fireEvent(Work input) throws InterruptedException {
+    queue.put(input);
+  }
 
-    public Work getPayLoad() throws InterruptedException {
-        return queue.take();
-    }
+  public Work getPayLoad() throws InterruptedException {
+    return queue.take();
+  }
 
-    public BlockingQueue<Work> getQueue() {
-        return queue;
-    }
+  public BlockingQueue<Work> getQueue() {
+    return queue;
+  }
 }

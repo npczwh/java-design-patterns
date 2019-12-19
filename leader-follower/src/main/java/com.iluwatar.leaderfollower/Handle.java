@@ -24,15 +24,14 @@
 package com.iluwatar.leaderfollower;
 
 /**
- * Represents a Unit of Work which workers can process. In this example only the {@link Work} class implements this.
- *
- * @author amit
- *
+ * Represents a Unit of Work which workers can process. In this example only the {@link Work} class
+ * implements this.
  */
 public interface Handle {
-    int getPayLoad();
 
-    void setHandled();
+  int getPayLoad();
 
-    boolean isHandled();
+  void setHandled();
+
+  boolean isHandled();
 }

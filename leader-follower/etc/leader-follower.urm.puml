@@ -1,0 +1,66 @@
+@startuml
+package com.iluwatar.leaderfollower {
+  class App {
+    + App()
+    + main(args : String[]) {static}
+  }
+  class ConcreteEventHandler {
+    + ConcreteEventHandler()
+    + handleEvent(handle : Handle)
+  }
+  interface EventHandler {
+    + handleEvent(Handle) {abstract}
+  }
+  interface Handle {
+    + getPayLoad() : int {abstract}
+    + isHandled() : boolean {abstract}
+    + setHandled() {abstract}
+  }
+  class HandleSet {
+    - queue : BlockingQueue<Work>
+    + HandleSet()
+    + fireEvent(input : Work)
+    + getPayLoad() : Work
+    + getQueue() : BlockingQueue<Work>
+  }
+  class Work {
+    + distance : int
+    - handled : boolean
+    + Work(distance : int)
+    + getPayLoad() : int
+    + isHandled() : boolean
+    + setHandled()
+  }
+  class WorkStation {
+    - executorService : ExecutorService
+    - leader : Worker
+    - workers : List<Worker>
+    + WorkStation(executorService : ExecutorService)
+    + addWorker(worker : Worker)
+    + getLeader() : Worker
+    + getWorkers() : List<Worker>
+    + setLeader(leader : Worker)
+    + startWork()
+  }
+  class Worker {
+    - concreteEventHandler : ConcreteEventHandler
+    - handleSet : HandleSet
+    - id : long
+    - workers : List<Worker>
+    - workstation : WorkStation
+    + Worker(queue : HandleSet, workers : List<Worker>, id : long, workstation : WorkStation, concreteEventHandler : ConcreteEventHandler)
+    + becomeLeader()
+    + equals(obj : Object) : boolean
+    + hashCode() : int
+    + run()
+  }
+}
+HandleSet -->  "-queue" Work
+Worker -->  "-handleSet" HandleSet
+Worker -->  "-concreteEventHandler" ConcreteEventHandler
+Worker -->  "-workers" Worker
+Worker -->  "-workstation" WorkStation
+Worker -->  "-workstation" WorkStation
+ConcreteEventHandler ..|> EventHandler 
+Work ..|> Handle 
+@enduml
