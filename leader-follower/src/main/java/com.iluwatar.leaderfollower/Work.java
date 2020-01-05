@@ -24,9 +24,9 @@
 package com.iluwatar.leaderfollower;
 
 /**
- * A unit of work to be processed by the Workers. Implements Handle.
+ * A unit of work to be processed by the Workers.
  */
-public class Work implements Handle {
+public class Work {
 
   public final int distance;
 
@@ -36,17 +36,14 @@ public class Work implements Handle {
     this.distance = distance;
   }
 
-  @Override
   public int getPayLoad() {
     return distance;
   }
 
-  @Override
   public void setHandled() {
     this.handled = true;
   }
 
-  @Override
   public boolean isHandled() {
     return this.handled;
   }
