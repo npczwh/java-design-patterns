@@ -26,13 +26,15 @@ package com.iluwatar.leaderfollower;
 /**
  * The ConcreteEventHandler. This is used by the {@link Worker} to process the newly arrived work.
  */
-public class ConcreteEventHandler implements EventHandler {
+public class ConcreteEventHandler {
 
-  @Override
-  public void handleEvent(Handle handle) {
+  /**
+   * The EventHandler interface which can process a unit of work.
+   */
+  public void handleEvent(Work work) {
     System.out.println("Doing the work");
-    int distance = handle.getPayLoad();
-    handle.setHandled();
+    int distance = work.getPayLoad();
+    work.setHandled();
     System.out.println("Travelled the distance " + distance);
   }
 
