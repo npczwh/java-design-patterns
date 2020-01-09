@@ -29,12 +29,12 @@ package com.iluwatar.leaderfollower;
 public class ConcreteEventHandler {
 
   /**
-   * The EventHandler interface which can process a unit of work.
+   * The EventHandler interface which can process a unit of task.
    */
-  public void handleEvent(Work work) {
-    System.out.println("Doing the work");
-    int distance = work.getPayLoad();
-    work.setHandled();
+  public void handleEvent(Task task) {
+    System.out.println("Doing the task");
+    int distance = task.getPayLoad();
+    task.setFinished();
     System.out.println("Travelled the distance " + distance);
   }
 

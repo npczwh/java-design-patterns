@@ -31,16 +31,16 @@ public class HandleSetTest {
     @Test
     public void testFireEvent() throws InterruptedException {
         HandleSet handleSet = new HandleSet();
-        handleSet.fireEvent(new Work(10));
+        handleSet.fireEvent(new Task(10));
         Assert.assertTrue(handleSet.getQueue().size() == 1);
     }
 
     @Test
     public void testGetEvent() throws InterruptedException {
         HandleSet handleSet = new HandleSet();
-        handleSet.fireEvent(new Work(10));
-        Work work = handleSet.getPayLoad();
-        Assert.assertTrue(work.distance == 10);
+        handleSet.fireEvent(new Task(10));
+        Task task = handleSet.getPayLoad();
+        Assert.assertTrue(task.distance == 10);
         Assert.assertTrue(handleSet.getQueue().size() == 0);
     }
 
