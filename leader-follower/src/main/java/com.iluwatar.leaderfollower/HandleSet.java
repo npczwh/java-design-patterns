@@ -31,17 +31,17 @@ import java.util.concurrent.BlockingQueue;
  */
 public class HandleSet {
 
-  private BlockingQueue<Work> queue = new ArrayBlockingQueue<>(100);
+  private BlockingQueue<Task> queue = new ArrayBlockingQueue<>(100);
 
-  public void fireEvent(Work input) throws InterruptedException {
+  public void fireEvent(Task input) throws InterruptedException {
     queue.put(input);
   }
 
-  public Work getPayLoad() throws InterruptedException {
+  public Task getPayLoad() throws InterruptedException {
     return queue.take();
   }
 
-  public BlockingQueue<Work> getQueue() {
+  public BlockingQueue<Task> getQueue() {
     return queue;
   }
 }

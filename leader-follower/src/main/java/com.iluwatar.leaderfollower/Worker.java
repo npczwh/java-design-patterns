@@ -70,7 +70,7 @@ public class Worker implements Runnable {
         //
         workers.remove(this);
         System.out.println("Leader: " + id);
-        Work work = handleSet.getPayLoad();
+        Task task = handleSet.getPayLoad();
         if (workers.size() > 0) {
           workstation.getWorkers().get(0).becomeLeader();
           workstation.setLeader(workstation.getWorkers().get(0));
@@ -80,7 +80,7 @@ public class Worker implements Runnable {
         synchronized (workstation) {
           workstation.notifyAll();
         }
-        concreteEventHandler.handleEvent(work);
+        concreteEventHandler.handleEvent(task);
         Thread.sleep(100);
         System.out.println("The Worker with the ID " + id + " completed the task");
         workstation.addWorker(this);

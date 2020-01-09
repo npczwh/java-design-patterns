@@ -31,9 +31,9 @@ public class ConcreteEventHandlerTest {
     @Test
     public void testEventHandling() throws InterruptedException {
         ConcreteEventHandler concreteEventHandler = new ConcreteEventHandler();
-        Work handle = new Work(10);
+        Task handle = new Task(10);
         concreteEventHandler.handleEvent(handle);
-        Assert.assertTrue(handle.isHandled());
+        Assert.assertTrue(handle.isFinished());
     }
 
 }

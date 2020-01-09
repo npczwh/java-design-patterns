@@ -65,7 +65,7 @@ public class WorkStation {
     Random rand = new Random(1000);
     int j = 0;
     while (j < 4) {
-      handleSet.fireEvent(new Work(Math.abs(rand.nextInt())));
+      handleSet.fireEvent(new Task(Math.abs(rand.nextInt())));
       j++;
     }
     Thread.sleep(1000);

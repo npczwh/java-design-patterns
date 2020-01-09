@@ -26,13 +26,13 @@ package com.iluwatar.leaderfollower;
 /**
  * A unit of work to be processed by the Workers.
  */
-public class Work {
+public class Task {
 
   public final int distance;
 
-  private boolean handled;
+  private boolean finished;
 
-  public Work(int distance) {
+  public Task(int distance) {
     this.distance = distance;
   }
 
@@ -40,12 +40,12 @@ public class Work {
     return distance;
   }
 
-  public void setHandled() {
-    this.handled = true;
+  public void setFinished() {
+    this.finished = true;
   }
 
-  public boolean isHandled() {
-    return this.handled;
+  public boolean isFinished() {
+    return this.finished;
   }
 
 }

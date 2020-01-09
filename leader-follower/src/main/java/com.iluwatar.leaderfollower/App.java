@@ -45,7 +45,7 @@ import java.util.concurrent.TimeUnit;
  * <p>In this example we use ThreadPool which basically acts as the ThreadPool. One of the
  * Workers becomes Leader and listens on the {@link HandleSet} for work. {@link HandleSet}
  * basically acts as the source of input events for the {@link Worker}, who are spawned and
- * controlled by the {@link WorkStation} . When {@link Work} arrives which implements the
+ * controlled by the {@link WorkStation} . When {@link Task} arrives which implements the
  * {@link Handle} interface then the leader takes the work and calls the
  * {@link ConcreteEventHandler}. However it also selects one of the waiting Workers as leader,
  * who can then process the next work and so on.
