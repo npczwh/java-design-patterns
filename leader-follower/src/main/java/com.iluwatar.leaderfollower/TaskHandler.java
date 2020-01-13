@@ -31,7 +31,7 @@ public class ConcreteEventHandler {
   /**
    * The EventHandler interface which can process a unit of task.
    */
-  public void handleEvent(Task task) {
+  public void handleTask(Task task) {
     System.out.println("Doing the task");
     int distance = task.getPayLoad();
     task.setFinished();
