@@ -24,18 +24,19 @@
 package com.iluwatar.leaderfollower;
 
 /**
- * The ConcreteEventHandler. This is used by the {@link Worker} to process the newly arrived work.
+ * The TaskHandler is used by the {@link Worker} to process the newly arrived work.
  */
-public class ConcreteEventHandler {
+public class TaskHandler {
 
   /**
-   * The EventHandler interface which can process a unit of task.
+   * The TaskHandler interface handles one task at a time.
    */
-  public void handleTask(Task task) {
-    System.out.println("Doing the task");
-    int distance = task.getPayLoad();
+  public void handleTask(Task task) throws InterruptedException {
+    int time = task.getTime();
+    System.out.println("Start the task");
+    Thread.sleep(time);
+    System.out.println("It takes " + time + " milliseconds to finish the task");
     task.setFinished();
-    System.out.println("Travelled the distance " + distance);
   }
 
 }

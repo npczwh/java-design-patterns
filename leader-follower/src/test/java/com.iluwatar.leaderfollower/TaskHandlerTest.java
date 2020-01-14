@@ -26,13 +26,13 @@ package com.iluwatar.leaderfollower;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ConcreteEventHandlerTest {
+public class TaskHandlerTest {
 
     @Test
-    public void testEventHandling() throws InterruptedException {
-        ConcreteEventHandler concreteEventHandler = new ConcreteEventHandler();
-        Task handle = new Task(10);
-        concreteEventHandler.handleTask(handle);
+    public void testHandleTask() throws InterruptedException {
+        TaskHandler taskHandler = new TaskHandler();
+        Task handle = new Task(100);
+        taskHandler.handleTask(handle);
         Assert.assertTrue(handle.isFinished());
     }
 

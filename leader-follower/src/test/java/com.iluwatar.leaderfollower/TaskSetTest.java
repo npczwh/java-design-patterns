@@ -26,22 +26,22 @@ package com.iluwatar.leaderfollower;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class HandleSetTest {
+public class TaskSetTest {
 
     @Test
-    public void testFireEvent() throws InterruptedException {
-        HandleSet handleSet = new HandleSet();
-        handleSet.fireEvent(new Task(10));
-        Assert.assertTrue(handleSet.getQueue().size() == 1);
+    public void testAddTask() throws InterruptedException {
+        TaskSet taskSet = new TaskSet();
+        taskSet.addTask(new Task(10));
+        Assert.assertTrue(taskSet.getQueue().size() == 1);
     }
 
     @Test
-    public void testGetEvent() throws InterruptedException {
-        HandleSet handleSet = new HandleSet();
-        handleSet.fireEvent(new Task(10));
-        Task task = handleSet.getPayLoad();
-        Assert.assertTrue(task.distance == 10);
-        Assert.assertTrue(handleSet.getQueue().size() == 0);
+    public void testGetTask() throws InterruptedException {
+        TaskSet taskSet = new TaskSet();
+        taskSet.addTask(new Task(100));
+        Task task = taskSet.getTask();
+        Assert.assertTrue(task.time == 100);
+        Assert.assertTrue(taskSet.getQueue().size() == 0);
     }
 
 }

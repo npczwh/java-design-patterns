@@ -28,16 +28,16 @@ package com.iluwatar.leaderfollower;
  */
 public class Task {
 
-  public final int distance;
+  public final int time;
 
   private boolean finished;
 
-  public Task(int distance) {
-    this.distance = distance;
+  public Task(int time) {
+    this.time = time;
   }
 
-  public int getPayLoad() {
-    return distance;
+  public int getTime() {
+    return time;
   }
 
   public void setFinished() {

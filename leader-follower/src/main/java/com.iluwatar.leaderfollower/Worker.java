@@ -27,23 +27,23 @@ import java.util.List;
 
 public class Worker implements Runnable {
 
-  private final HandleSet handleSet;
+  private final TaskSet taskSet;
   private List<Worker> workers;
   private final long id;
   private final WorkStation workstation;
-  private final ConcreteEventHandler concreteEventHandler;
+  private final TaskHandler taskHandler;
 
   /**
    * Constructor to create a worker which will take work from the work station.
    */
-  public Worker(HandleSet queue, List<Worker> workers, long id, WorkStation workstation,
-      ConcreteEventHandler concreteEventHandler) {
+  public Worker(TaskSet queue, List<Worker> workers, long id, WorkStation workstation,
+      TaskHandler taskHandler) {
     super();
-    this.handleSet = queue;
+    this.taskSet = queue;
     this.workers = workers;
     this.id = id;
     this.workstation = workstation;
-    this.concreteEventHandler = concreteEventHandler;
+    this.taskHandler = taskHandler;
   }
 
   /**
@@ -70,7 +70,7 @@ public class Worker implements Runnable {
         //
         workers.remove(this);
         System.out.println("Leader: " + id);
-        Task task = handleSet.getPayLoad();
+        Task task = taskSet.getTask();
         if (workers.size() > 0) {
           workstation.getWorkers().get(0).becomeLeader();
           workstation.setLeader(workstation.getWorkers().get(0));
@@ -80,8 +80,8 @@ public class Worker implements Runnable {
         synchronized (workstation) {
           workstation.notifyAll();
         }
-        concreteEventHandler.handleEvent(task);
-        Thread.sleep(100);
+        taskHandler.handleTask(task);
+        // Thread.sleep(100);
         System.out.println("The Worker with the ID " + id + " completed the task");
         workstation.addWorker(this);
       } catch (InterruptedException e) {
