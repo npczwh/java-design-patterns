@@ -50,10 +50,10 @@ public class WorkStation {
    */
   public void startWork() throws InterruptedException {
     int i = 1;
-    HandleSet handleSet = new HandleSet();
-    ConcreteEventHandler concreteEventHandler = new ConcreteEventHandler();
+    TaskSet taskSet = new TaskSet();
+    TaskHandler taskHandler = new TaskHandler();
     while (i <= 5) {
-      Worker worker = new Worker(handleSet, workers, i, this, concreteEventHandler);
+      Worker worker = new Worker(taskSet, workers, i, this, taskHandler);
       workers.add(worker);
       i++;
     }
@@ -62,10 +62,12 @@ public class WorkStation {
     executorService.submit(workers.get(1));
     executorService.submit(workers.get(2));
     executorService.submit(workers.get(3));
-    Random rand = new Random(1000);
+    Random rand = new Random(2020);
     int j = 0;
     while (j < 4) {
-      handleSet.fireEvent(new Task(Math.abs(rand.nextInt())));
+      int time = Math.abs(rand.nextInt(1000));
+      System.out.println("time is" + time);
+      taskSet.addTask(new Task(time));
       j++;
     }
     Thread.sleep(1000);

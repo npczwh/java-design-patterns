@@ -24,9 +24,9 @@ package com.iluwatar.leaderfollower {
     + getQueue() : BlockingQueue<Work>
   }
   class Work {
-    + distance : int
+    + time : int
     - handled : boolean
-    + Work(distance : int)
+    + Work(time : int)
     + getPayLoad() : int
     + isHandled() : boolean
     + setHandled()
@@ -43,12 +43,12 @@ package com.iluwatar.leaderfollower {
     + startWork()
   }
   class Worker {
-    - concreteEventHandler : ConcreteEventHandler
-    - handleSet : HandleSet
+    - taskHandler : ConcreteEventHandler
+    - taskSet : HandleSet
     - id : long
     - workers : List<Worker>
     - workstation : WorkStation
-    + Worker(queue : HandleSet, workers : List<Worker>, id : long, workstation : WorkStation, concreteEventHandler : ConcreteEventHandler)
+    + Worker(queue : HandleSet, workers : List<Worker>, id : long, workstation : WorkStation, taskHandler : ConcreteEventHandler)
     + becomeLeader()
     + equals(obj : Object) : boolean
     + hashCode() : int
@@ -56,8 +56,8 @@ package com.iluwatar.leaderfollower {
   }
 }
 HandleSet -->  "-queue" Work
-Worker -->  "-handleSet" HandleSet
-Worker -->  "-concreteEventHandler" ConcreteEventHandler
+Worker -->  "-taskSet" HandleSet
+Worker -->  "-taskHandler" ConcreteEventHandler
 Worker -->  "-workers" Worker
 Worker -->  "-workstation" WorkStation
 Worker -->  "-workstation" WorkStation

@@ -27,17 +27,17 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * The {@link HandleSet} class. All work arrive here, workers receive work from here.
+ * The {@link TaskSet} class. All work arrive here, workers receive work from here.
  */
-public class HandleSet {
+public class TaskSet {
 
   private BlockingQueue<Task> queue = new ArrayBlockingQueue<>(100);
 
-  public void fireEvent(Task input) throws InterruptedException {
+  public void addTask(Task input) throws InterruptedException {
     queue.put(input);
   }
 
-  public Task getPayLoad() throws InterruptedException {
+  public Task getTask() throws InterruptedException {
     return queue.take();
   }
 
