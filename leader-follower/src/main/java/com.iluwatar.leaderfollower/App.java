@@ -71,8 +71,7 @@ public class App {
   /**
    * The main method for the leader follower pattern.
    */
-  public static void main(String[] args) throws IOException, ClassNotFoundException,
-      InterruptedException {
+  public static void main(String[] args) throws InterruptedException {
     ExecutorService exec = Executors.newFixedThreadPool(4);
     WorkStation station = new WorkStation(exec);
     station.startWork();

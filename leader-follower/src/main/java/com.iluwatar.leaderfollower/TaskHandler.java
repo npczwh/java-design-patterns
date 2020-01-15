@@ -33,7 +33,6 @@ public class TaskHandler {
    */
   public void handleTask(Task task) throws InterruptedException {
     int time = task.getTime();
-    System.out.println("Start the task");
     Thread.sleep(time);
     System.out.println("It takes " + time + " milliseconds to finish the task");
     task.setFinished();
