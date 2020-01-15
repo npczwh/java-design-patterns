@@ -39,7 +39,7 @@ public class WorkStation {
 
   private Worker leader;
   private List<Worker> workers = new CopyOnWriteArrayList<>();
-  private ExecutorService executorService = Executors.newFixedThreadPool(4);
+  private ExecutorService executorService;
 
   public WorkStation(ExecutorService executorService) {
     this.executorService = executorService;
@@ -62,11 +62,10 @@ public class WorkStation {
     executorService.submit(workers.get(1));
     executorService.submit(workers.get(2));
     executorService.submit(workers.get(3));
-    Random rand = new Random(2020);
+    Random rand = new Random();
     int j = 0;
     while (j < 4) {
       int time = Math.abs(rand.nextInt(1000));
-      System.out.println("time is" + time);
       taskSet.addTask(new Task(time));
       j++;
     }
