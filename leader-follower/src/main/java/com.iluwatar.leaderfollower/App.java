@@ -23,6 +23,7 @@
 
 package com.iluwatar.leaderfollower;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -67,28 +68,36 @@ public class App {
    * The main method for the leader follower pattern.
    */
   public static void main(String[] args) throws InterruptedException {
-    TaskSet taskSet = createTaskSet();
+    TaskSet taskSet = new TaskSet();
     TaskHandler taskHandler = new TaskHandler();
     Manager manager = new Manager();
-    manager.createWorkers(5, taskSet, taskHandler);
-
-    manager.startWork();
-
-    ExecutorService exec = Executors.newFixedThreadPool(4);
-    exec.awaitTermination(10, TimeUnit.SECONDS);
-    exec.shutdownNow();
+    manager.createWorkers(4, taskSet, taskHandler);
+    execute(manager, taskSet);
   }
 
   /**
-   * Create TaskSet.
+   * Start the workers, dispatch tasks and stop the thread pool at last.
    */
-  public static TaskSet createTaskSet() throws InterruptedException {
-    TaskSet taskSet = new TaskSet();
+  public static void execute(Manager manager, TaskSet taskSet) throws InterruptedException {
+    List<Worker> workers = manager.getWorkers();
+    ExecutorService exec = Executors.newFixedThreadPool(workers.size());
+    for (Worker worker : workers) {
+      exec.submit(worker);
+    }
+    dispatchTasks(taskSet);
+    Thread.sleep(1000);
+    exec.shutdown();
+    exec.awaitTermination(3, TimeUnit.SECONDS);
+  }
+
+  /**
+   * Dispatch tasks.
+   */
+  public static void dispatchTasks(TaskSet taskSet) throws InterruptedException {
     Random rand = new Random();
     for (int i = 0; i < 5; i++) {
       int time = Math.abs(rand.nextInt(1000));
       taskSet.addTask(new Task(time));
     }
-    return taskSet;
   }
 }
