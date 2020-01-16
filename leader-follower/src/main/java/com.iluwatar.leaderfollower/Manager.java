@@ -33,13 +33,13 @@ import java.util.concurrent.ExecutorService;
  * provides a mechanism to set the leader. A worker once he completes his task will add himself back
  * to the station.
  */
-public class WorkStation {
+public class Manager {
 
   private Worker leader;
   private List<Worker> workers = new CopyOnWriteArrayList<>();
   private ExecutorService executorService;
 
-  public WorkStation() {
+  public Manager() {
 
   }
 
@@ -47,7 +47,6 @@ public class WorkStation {
    * Start the work. Add workers and then dispatch new work to be processed by the set of workers.
    */
   public void startWork() throws InterruptedException {
-    this.leader = workers.get(0);
     // executorService.submit(workers.get(0));
     // executorService.submit(workers.get(1));
     // executorService.submit(workers.get(2));
@@ -56,13 +55,14 @@ public class WorkStation {
   }
 
   /**
-   * Create workers.
+   * Create workers and set leader.
    */
   public void createWorkers(int numberOfWorkers, TaskSet taskSet, TaskHandler taskHandler) {
     for (int i = 1; i <= numberOfWorkers; i++) {
       Worker worker = new Worker(taskSet, workers, i, this, taskHandler);
       workers.add(worker);
     }
+    this.leader = workers.get(0);
   }
 
   public Worker getLeader() {
@@ -74,7 +74,7 @@ public class WorkStation {
   }
 
   /**
-   * Add a worker to the work station.
+   * Add a worker.
    */
   public void addWorker(Worker worker) {
     if (this.workers.size() <= 0) {

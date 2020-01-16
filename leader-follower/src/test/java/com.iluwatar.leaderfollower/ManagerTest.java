@@ -27,16 +27,17 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for WorkStation
+ * Tests for Manager
  */
-public class WorkStationTest {
+public class ManagerTest {
 
   @Test
   public void testCreateWorkers() {
     TaskSet taskSet = new TaskSet();
     TaskHandler taskHandler = new TaskHandler();
-    WorkStation station = new WorkStation();
-    station.createWorkers(5, taskSet, taskHandler);
-    Assert.assertEquals(station.getWorkers().size(), 5);
+    Manager manager = new Manager();
+    manager.createWorkers(5, taskSet, taskHandler);
+    Assert.assertEquals(manager.getWorkers().size(), 5);
+    Assert.assertEquals(manager.getWorkers().get(0), manager.getLeader());
   }
 }

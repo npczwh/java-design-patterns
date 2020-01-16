@@ -47,8 +47,8 @@ package com.iluwatar.leaderfollower {
     - taskSet : HandleSet
     - id : long
     - workers : List<Worker>
-    - workstation : WorkStation
-    + Worker(queue : HandleSet, workers : List<Worker>, id : long, workstation : WorkStation, taskHandler : ConcreteEventHandler)
+    - manager : WorkStation
+    + Worker(queue : HandleSet, workers : List<Worker>, id : long, manager : WorkStation, taskHandler : ConcreteEventHandler)
     + becomeLeader()
     + equals(obj : Object) : boolean
     + hashCode() : int
@@ -59,8 +59,8 @@ HandleSet -->  "-queue" Work
 Worker -->  "-taskSet" HandleSet
 Worker -->  "-taskHandler" ConcreteEventHandler
 Worker -->  "-workers" Worker
-Worker -->  "-workstation" WorkStation
-Worker -->  "-workstation" WorkStation
+Worker -->  "-manager" WorkStation
+Worker -->  "-manager" WorkStation
 ConcreteEventHandler ..|> EventHandler 
 Work ..|> Handle 
 @enduml

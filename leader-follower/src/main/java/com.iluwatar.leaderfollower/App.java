@@ -44,7 +44,7 @@ import java.util.concurrent.TimeUnit;
  * <p>In this example we use ThreadPool which basically acts as the ThreadPool. One of the
  * Workers becomes Leader and listens on the {@link TaskSet} for work. {@link TaskSet} basically
  * acts as the source of input events for the {@link Worker}, who are spawned and controlled by the
- * {@link WorkStation} . When {@link Task} arrives then the leader takes the work and calls the
+ * {@link Manager} . When {@link Task} arrives then the leader takes the work and calls the
  * {@link TaskHandler}. However it also selects one of the waiting Workers as leader, who can then
  * process the next work and so on.
  *
@@ -69,10 +69,10 @@ public class App {
   public static void main(String[] args) throws InterruptedException {
     TaskSet taskSet = createTaskSet();
     TaskHandler taskHandler = new TaskHandler();
-    WorkStation station = new WorkStation();
-    station.createWorkers(5, taskSet, taskHandler);
+    Manager manager = new Manager();
+    manager.createWorkers(5, taskSet, taskHandler);
 
-    station.startWork();
+    manager.startWork();
 
     ExecutorService exec = Executors.newFixedThreadPool(4);
     exec.awaitTermination(10, TimeUnit.SECONDS);
