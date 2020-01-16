@@ -67,23 +67,28 @@ public class App {
    * The main method for the leader follower pattern.
    */
   public static void main(String[] args) throws InterruptedException {
-    TaskSet taskSet = new TaskSet();
+    TaskSet taskSet = createTaskSet();
     TaskHandler taskHandler = new TaskHandler();
     WorkStation station = new WorkStation();
     station.createWorkers(5, taskSet, taskHandler);
-
-    Random rand = new Random();
-    int j = 0;
-    while (j < 4) {
-      int time = Math.abs(rand.nextInt(1000));
-      taskSet.addTask(new Task(time));
-      j++;
-    }
 
     station.startWork();
 
     ExecutorService exec = Executors.newFixedThreadPool(4);
     exec.awaitTermination(10, TimeUnit.SECONDS);
     exec.shutdownNow();
+  }
+
+  /**
+   * Create TaskSet.
+   */
+  public static TaskSet createTaskSet() throws InterruptedException {
+    TaskSet taskSet = new TaskSet();
+    Random rand = new Random();
+    for (int i = 0; i < 5; i++) {
+      int time = Math.abs(rand.nextInt(1000));
+      taskSet.addTask(new Task(time));
+    }
+    return taskSet;
   }
 }
