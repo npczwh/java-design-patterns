@@ -26,6 +26,9 @@ package com.iluwatar.leaderfollower;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Tests for TaskHandler
+ */
 public class TaskHandlerTest {
 
     @Test

@@ -24,10 +24,8 @@
 package com.iluwatar.leaderfollower;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Represents the Workstation for the leader Follower pattern. Contains a leader and a list of idle
@@ -41,35 +39,30 @@ public class WorkStation {
   private List<Worker> workers = new CopyOnWriteArrayList<>();
   private ExecutorService executorService;
 
-  public WorkStation(ExecutorService executorService) {
-    this.executorService = executorService;
+  public WorkStation() {
+
   }
 
   /**
    * Start the work. Add workers and then dispatch new work to be processed by the set of workers.
    */
   public void startWork() throws InterruptedException {
-    int i = 1;
-    TaskSet taskSet = new TaskSet();
-    TaskHandler taskHandler = new TaskHandler();
-    while (i <= 5) {
+    this.leader = workers.get(0);
+    // executorService.submit(workers.get(0));
+    // executorService.submit(workers.get(1));
+    // executorService.submit(workers.get(2));
+    // executorService.submit(workers.get(3));
+    Thread.sleep(1000);
+  }
+
+  /**
+   * Create workers.
+   */
+  public void createWorkers(int numberOfWorkers, TaskSet taskSet, TaskHandler taskHandler) {
+    for (int i = 1; i <= numberOfWorkers; i++) {
       Worker worker = new Worker(taskSet, workers, i, this, taskHandler);
       workers.add(worker);
-      i++;
     }
-    this.leader = workers.get(0);
-    executorService.submit(workers.get(0));
-    executorService.submit(workers.get(1));
-    executorService.submit(workers.get(2));
-    executorService.submit(workers.get(3));
-    Random rand = new Random();
-    int j = 0;
-    while (j < 4) {
-      int time = Math.abs(rand.nextInt(1000));
-      taskSet.addTask(new Task(time));
-      j++;
-    }
-    Thread.sleep(1000);
   }
 
   public Worker getLeader() {
