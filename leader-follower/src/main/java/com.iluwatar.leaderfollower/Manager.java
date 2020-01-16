@@ -44,17 +44,6 @@ public class Manager {
   }
 
   /**
-   * Start the work. Add workers and then dispatch new work to be processed by the set of workers.
-   */
-  public void startWork() throws InterruptedException {
-    // executorService.submit(workers.get(0));
-    // executorService.submit(workers.get(1));
-    // executorService.submit(workers.get(2));
-    // executorService.submit(workers.get(3));
-    Thread.sleep(1000);
-  }
-
-  /**
    * Create workers and set leader.
    */
   public void createWorkers(int numberOfWorkers, TaskSet taskSet, TaskHandler taskHandler) {
