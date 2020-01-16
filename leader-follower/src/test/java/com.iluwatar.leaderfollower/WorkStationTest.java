@@ -27,24 +27,16 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for TaskSet
+ * Tests for WorkStation
  */
-public class TaskSetTest {
+public class WorkStationTest {
 
-    @Test
-    public void testAddTask() throws InterruptedException {
-        TaskSet taskSet = new TaskSet();
-        taskSet.addTask(new Task(10));
-        Assert.assertTrue(taskSet.getQueue().size() == 1);
-    }
-
-    @Test
-    public void testGetTask() throws InterruptedException {
-        TaskSet taskSet = new TaskSet();
-        taskSet.addTask(new Task(100));
-        Task task = taskSet.getTask();
-        Assert.assertTrue(task.time == 100);
-        Assert.assertTrue(taskSet.getQueue().size() == 0);
-    }
-
+  @Test
+  public void testCreateWorkers() {
+    TaskSet taskSet = new TaskSet();
+    TaskHandler taskHandler = new TaskHandler();
+    WorkStation station = new WorkStation();
+    station.createWorkers(5, taskSet, taskHandler);
+    Assert.assertEquals(station.getWorkers().size(), 5);
+  }
 }
