@@ -30,19 +30,19 @@ public class Worker implements Runnable {
   private final TaskSet taskSet;
   private List<Worker> workers;
   private final long id;
-  private final WorkStation workstation;
+  private final Manager manager;
   private final TaskHandler taskHandler;
 
   /**
    * Constructor to create a worker which will take work from the work station.
    */
-  public Worker(TaskSet queue, List<Worker> workers, long id, WorkStation workstation,
+  public Worker(TaskSet queue, List<Worker> workers, long id, Manager manager,
       TaskHandler taskHandler) {
     super();
     this.taskSet = queue;
     this.workers = workers;
     this.id = id;
-    this.workstation = workstation;
+    this.manager = manager;
     this.taskHandler = taskHandler;
   }
 
@@ -50,8 +50,8 @@ public class Worker implements Runnable {
    * Become the leader, and notify others.
    */
   public void becomeLeader() {
-    synchronized (workstation) {
-      workstation.notifyAll();
+    synchronized (manager) {
+      manager.notifyAll();
     }
   }
 
@@ -60,10 +60,10 @@ public class Worker implements Runnable {
   public void run() {
     while (!Thread.interrupted()) {
       try {
-        if (workstation.getLeader() != null && !workstation.getLeader().equals(this)) {
+        if (manager.getLeader() != null && !manager.getLeader().equals(this)) {
           // System.out.println("ID " +id + " is follower");
-          synchronized (workstation) {
-            workstation.wait();
+          synchronized (manager) {
+            manager.wait();
           }
 
         }
@@ -72,18 +72,18 @@ public class Worker implements Runnable {
         System.out.println("Leader: " + id);
         Task task = taskSet.getTask();
         if (workers.size() > 0) {
-          workstation.getWorkers().get(0).becomeLeader();
-          workstation.setLeader(workstation.getWorkers().get(0));
+          manager.getWorkers().get(0).becomeLeader();
+          manager.setLeader(manager.getWorkers().get(0));
         } else {
-          workstation.setLeader(null);
+          manager.setLeader(null);
         }
-        synchronized (workstation) {
-          workstation.notifyAll();
+        synchronized (manager) {
+          manager.notifyAll();
         }
         taskHandler.handleTask(task);
         // Thread.sleep(100);
         System.out.println("The Worker with the ID " + id + " completed the task");
-        workstation.addWorker(this);
+        manager.addWorker(this);
       } catch (InterruptedException e) {
         System.out.println("Worker intreuppted");
         return;
