@@ -76,7 +76,7 @@ public class App {
   }
 
   /**
-   * Start the workers, dispatch tasks and stop the thread pool at last.
+   * Start the work, dispatch tasks and stop the thread pool at last.
    */
   public static void execute(Manager manager, TaskSet taskSet) throws InterruptedException {
     List<Worker> workers = manager.getWorkers();
@@ -84,16 +84,16 @@ public class App {
     for (Worker worker : workers) {
       exec.submit(worker);
     }
-    dispatchTasks(taskSet);
+    addTasks(taskSet);
     Thread.sleep(1000);
     exec.shutdown();
     exec.awaitTermination(3, TimeUnit.SECONDS);
   }
 
   /**
-   * Dispatch tasks.
+   * Add tasks.
    */
-  public static void dispatchTasks(TaskSet taskSet) throws InterruptedException {
+  public static void addTasks(TaskSet taskSet) throws InterruptedException {
     Random rand = new Random();
     for (int i = 0; i < 5; i++) {
       int time = Math.abs(rand.nextInt(1000));
