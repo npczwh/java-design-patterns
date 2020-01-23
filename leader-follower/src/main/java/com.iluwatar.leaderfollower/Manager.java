@@ -63,10 +63,6 @@ public class Manager {
     return leader;
   }
 
-  public void setLeader(Worker leader) {
-    this.leader = leader;
-  }
-
   /**
    * Promote a leader.
    */
@@ -75,7 +71,7 @@ public class Manager {
     if (workers.size() > 0) {
       leader = workers.get(0);
     }
-    setLeader(leader);
+    this.leader = leader;
   }
 
   public List<Worker> getWorkers() {
