@@ -25,7 +25,6 @@ package com.iluwatar.leaderfollower;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
 
 /**
  * Represents the Workstation for the leader Follower pattern. Contains a leader and a list of idle
@@ -37,7 +36,6 @@ public class Manager {
 
   private Worker leader;
   private List<Worker> workers = new CopyOnWriteArrayList<>();
-  private ExecutorService executorService;
 
   public Manager() {
 
@@ -47,15 +45,15 @@ public class Manager {
    * Create workers and set leader.
    */
   public void createWorkers(int numberOfWorkers, TaskSet taskSet, TaskHandler taskHandler) {
-    for (int i = 1; i <= numberOfWorkers; i++) {
-      Worker worker = new Worker(taskSet, workers, i, this, taskHandler);
+    for (int id = 1; id <= numberOfWorkers; id++) {
+      Worker worker = new Worker(taskSet, workers, id, this, taskHandler);
       workers.add(worker);
     }
-    this.leader = workers.get(0);
+    leader = workers.get(0);
   }
 
   public Worker getLeader() {
-    return this.leader;
+    return leader;
   }
 
   public void setLeader(Worker leader) {
