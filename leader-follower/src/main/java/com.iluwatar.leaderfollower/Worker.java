@@ -24,6 +24,7 @@
 package com.iluwatar.leaderfollower;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Worker implements Runnable {
 
@@ -55,19 +56,16 @@ public class Worker implements Runnable {
     }
   }
 
-
   @Override
   public void run() {
     while (!Thread.interrupted()) {
       try {
         if (manager.getLeader() != null && !manager.getLeader().equals(this)) {
-          // System.out.println("ID " +id + " is follower");
           synchronized (manager) {
             manager.wait();
           }
-
         }
-        //
+
         workers.remove(this);
         System.out.println("Leader: " + id);
         Task task = taskSet.getTask();
@@ -85,39 +83,26 @@ public class Worker implements Runnable {
         System.out.println("The Worker with the ID " + id + " completed the task");
         manager.addWorker(this);
       } catch (InterruptedException e) {
-        System.out.println("Worker intreuppted");
+        System.out.println("Worker interuppted");
         return;
       }
     }
   }
 
   @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + (int) (id ^ (id >>> 32));
-    return result;
-  }
-
-  /**
-   * Overridden equals method.
-   */
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
+  public boolean equals(Object o) {
+    if (this == o) {
       return true;
     }
-    if (obj == null) {
+    if (!(o instanceof Worker)) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    Worker other = (Worker) obj;
-    if (id != other.id) {
-      return false;
-    }
-    return true;
+    Worker worker = (Worker) o;
+    return id == worker.id;
   }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 }
