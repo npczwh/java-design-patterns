@@ -40,4 +40,23 @@ public class ManagerTest {
     Assert.assertEquals(manager.getWorkers().size(), 5);
     Assert.assertEquals(manager.getWorkers().get(0), manager.getLeader());
   }
+
+  @Test
+  public void testNullLeader() {
+    Manager manager = new Manager();
+    manager.promoteLeader();
+    Assert.assertNull(manager.getLeader());
+  }
+
+  @Test
+  public void testPromoteLeader() {
+    TaskSet taskSet = new TaskSet();
+    TaskHandler taskHandler = new TaskHandler();
+    Manager manager = new Manager();
+    manager.createWorkers(5, taskSet, taskHandler);
+    manager.removeWorker(manager.getLeader());
+    manager.promoteLeader();
+    Assert.assertEquals(manager.getWorkers().size(), 4);
+    Assert.assertEquals(manager.getWorkers().get(0), manager.getLeader());
+  }
 }
