@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Represents the Workstation for the leader Follower pattern. Contains a leader and a list of idle
- * workers. Contains a leader who is responsible for receiving work when it arrives. This class also
- * provides a mechanism to set the leader. A worker once he completes his task will add himself back
- * to the station.
+ * Represents the WorkCenter for the Leader Follower pattern. Contains a leader and a list of idle
+ * workers. The leader is responsible for receiving work when it arrives. This class also provides a
+ * mechanism to promote a new leader. A worker once he completes his task will add himself back to
+ * the station.
  */
 public class Manager {
 
@@ -38,7 +38,6 @@ public class Manager {
   private List<Worker> workers = new CopyOnWriteArrayList<>();
 
   public Manager() {
-
   }
 
   /**
@@ -49,7 +48,15 @@ public class Manager {
       Worker worker = new Worker(taskSet, workers, id, this, taskHandler);
       workers.add(worker);
     }
-    leader = workers.get(0);
+    promoteLeader();
+  }
+
+  public void addWorker(Worker worker) {
+    workers.add(worker);
+  }
+
+  public void removeWorker(Worker worker) {
+    workers.remove(worker);
   }
 
   public Worker getLeader() {
@@ -61,12 +68,14 @@ public class Manager {
   }
 
   /**
-   * Add a worker.
+   * Promote a leader.
    */
-  public void addWorker(Worker worker) {
-    if (this.workers.size() <= 0) {
-      workers.add(worker);
+  public void promoteLeader() {
+    Worker leader = null;
+    if (workers.size() > 0) {
+      leader = workers.get(0);
     }
+    setLeader(leader);
   }
 
   public List<Worker> getWorkers() {

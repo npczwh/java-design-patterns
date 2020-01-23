@@ -66,8 +66,8 @@ public class Worker implements Runnable {
           }
         }
 
-        workers.remove(this);
         System.out.println("Leader: " + id);
+        manager.removeWorker(this);
         Task task = taskSet.getTask();
         if (workers.size() > 0) {
           manager.getWorkers().get(0).becomeLeader();
@@ -83,7 +83,7 @@ public class Worker implements Runnable {
         System.out.println("The Worker with the ID " + id + " completed the task");
         manager.addWorker(this);
       } catch (InterruptedException e) {
-        System.out.println("Worker interuppted");
+        System.out.println("Worker interrupted");
         return;
       }
     }
