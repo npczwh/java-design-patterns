@@ -45,7 +45,7 @@ public class Manager {
    */
   public void createWorkers(int numberOfWorkers, TaskSet taskSet, TaskHandler taskHandler) {
     for (int id = 1; id <= numberOfWorkers; id++) {
-      Worker worker = new Worker(taskSet, workers, id, this, taskHandler);
+      Worker worker = new Worker(id, this, taskSet, taskHandler);
       workers.add(worker);
     }
     promoteLeader();

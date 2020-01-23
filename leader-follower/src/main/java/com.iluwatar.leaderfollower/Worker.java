@@ -23,37 +23,24 @@
 
 package com.iluwatar.leaderfollower;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Worker implements Runnable {
 
-  private final TaskSet taskSet;
-  private List<Worker> workers;
   private final long id;
   private final Manager manager;
+  private final TaskSet taskSet;
   private final TaskHandler taskHandler;
 
   /**
    * Constructor to create a worker which will take work from the work station.
    */
-  public Worker(TaskSet queue, List<Worker> workers, long id, Manager manager,
-      TaskHandler taskHandler) {
+  public Worker(long id, Manager manager, TaskSet queue, TaskHandler taskHandler) {
     super();
-    this.taskSet = queue;
-    this.workers = workers;
     this.id = id;
     this.manager = manager;
+    this.taskSet = queue;
     this.taskHandler = taskHandler;
-  }
-
-  /**
-   * Become the leader, and notify others.
-   */
-  public void becomeLeader() {
-    synchronized (manager) {
-      manager.notifyAll();
-    }
   }
 
   @Override
@@ -65,21 +52,14 @@ public class Worker implements Runnable {
             manager.wait();
           }
         }
-
         System.out.println("Leader: " + id);
-        manager.removeWorker(this);
-        Task task = taskSet.getTask();
-        if (workers.size() > 0) {
-          manager.getWorkers().get(0).becomeLeader();
-          manager.setLeader(manager.getWorkers().get(0));
-        } else {
-          manager.setLeader(null);
-        }
+        final Task task = taskSet.getTask();
         synchronized (manager) {
+          manager.removeWorker(this);
+          manager.promoteLeader();
           manager.notifyAll();
         }
         taskHandler.handleTask(task);
-        // Thread.sleep(100);
         System.out.println("The Worker with the ID " + id + " completed the task");
         manager.addWorker(this);
       } catch (InterruptedException e) {
