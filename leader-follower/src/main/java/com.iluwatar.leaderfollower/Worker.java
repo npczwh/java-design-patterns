@@ -52,7 +52,6 @@ public class Worker implements Runnable {
             workCenter.wait();
           }
         }
-        System.out.println("Leader: " + id);
         final Task task = taskSet.getTask();
         synchronized (workCenter) {
           workCenter.removeWorker(this);
