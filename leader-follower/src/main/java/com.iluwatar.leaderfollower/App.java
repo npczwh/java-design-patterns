@@ -77,10 +77,10 @@ public class App {
     for (var worker : workers) {
       exec.submit(worker);
     }
-    addTasks(taskSet);
     Thread.sleep(1000);
-    exec.shutdown();
-    exec.awaitTermination(3, TimeUnit.SECONDS);
+    addTasks(taskSet);
+    exec.awaitTermination(2, TimeUnit.SECONDS);
+    exec.shutdownNow();
   }
 
   /**

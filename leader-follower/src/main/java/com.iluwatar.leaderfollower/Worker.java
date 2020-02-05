@@ -55,6 +55,7 @@ public class Worker implements Runnable {
           synchronized (workCenter) {
             workCenter.wait();
           }
+          continue;
         }
         final Task task = taskSet.getTask();
         synchronized (workCenter) {
