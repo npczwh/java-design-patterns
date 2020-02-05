@@ -33,9 +33,9 @@ public class WorkCenterTest {
 
   @Test
   public void testCreateWorkers() {
-    TaskSet taskSet = new TaskSet();
-    TaskHandler taskHandler = new TaskHandler();
-    WorkCenter workCenter = new WorkCenter();
+    var taskSet = new TaskSet();
+    var taskHandler = new TaskHandler();
+    var workCenter = new WorkCenter();
     workCenter.createWorkers(5, taskSet, taskHandler);
     Assert.assertEquals(workCenter.getWorkers().size(), 5);
     Assert.assertEquals(workCenter.getWorkers().get(0), workCenter.getLeader());
@@ -43,16 +43,16 @@ public class WorkCenterTest {
 
   @Test
   public void testNullLeader() {
-    WorkCenter workCenter = new WorkCenter();
+    var workCenter = new WorkCenter();
     workCenter.promoteLeader();
     Assert.assertNull(workCenter.getLeader());
   }
 
   @Test
   public void testPromoteLeader() {
-    TaskSet taskSet = new TaskSet();
-    TaskHandler taskHandler = new TaskHandler();
-    WorkCenter workCenter = new WorkCenter();
+    var taskSet = new TaskSet();
+    var taskHandler = new TaskHandler();
+    var workCenter = new WorkCenter();
     workCenter.createWorkers(5, taskSet, taskHandler);
     workCenter.removeWorker(workCenter.getLeader());
     workCenter.promoteLeader();

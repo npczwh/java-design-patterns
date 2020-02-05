@@ -33,8 +33,8 @@ public class TaskHandlerTest {
 
     @Test
     public void testHandleTask() throws InterruptedException {
-        TaskHandler taskHandler = new TaskHandler();
-        Task handle = new Task(100);
+        var taskHandler = new TaskHandler();
+        var handle = new Task(100);
         taskHandler.handleTask(handle);
         Assert.assertTrue(handle.isFinished());
     }
