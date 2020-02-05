@@ -29,24 +29,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Leader Follower is a concurrency pattern where multiple threads can efficiently de-multiplex
- * events and dispatch to event handlers. One may think of it as a taxi station at night, where all
- * the drivers are sleeping except for one, the leader. The ThreadPool is a station managing many
- * threads - cabs.
+ * Leader/Followers pattern is a concurrency pattern. This pattern behaves like a taxi stand where
+ * one of the threads acts as leader thread which listens for event from event sources,
+ * de-multiplexes, dispatches and handles the event. It promotes the follower to be the new leader.
+ * When processing completes the thread joins the followers queue, if there are no followers then it
+ * becomes the leader and cycle repeats again.
  *
- * <p>The leader is waiting for an IO event on the TaskSet, so as a driver waits for a client.
- * When a client arrives (in the form of a Handle identifying the IO event), the leader driver wakes
- * up another driver to be the next leader and serves the request from his passenger. While he is
- * taking the client to the given address (calling TaskHandler and handing over Handle to it) the
- * next leader can concurrently serve another passenger. When a driver finishes he take his taxi
- * back to the station and falls asleep if the station is not empty. Otherwise he become the leader
- *
- * <p>In this example we use ThreadPool which basically acts as the ThreadPool. One of the
- * Workers becomes Leader and listens on the {@link TaskSet} for work. {@link TaskSet} basically
- * acts as the source of input events for the {@link Worker}, who are spawned and controlled by the
- * {@link WorkCenter} . When {@link Task} arrives then the leader takes the work and calls the
- * {@link TaskHandler}. However it also selects one of the waiting Workers as leader, who can then
- * process the next work and so on.
+ * <p>In this example, one of the workers becomes Leader and listens on the {@link TaskSet} for
+ * work. {@link TaskSet} basically acts as the source of input events for the {@link Worker}, who
+ * are spawned and controlled by the {@link WorkCenter} . When {@link Task} arrives then the leader
+ * takes the work and calls the {@link TaskHandler}. It also calls the {@link WorkCenter} to
+ * promotes one of the followers to be the new leader, who can then process the next work and so
+ * on.
  *
  * <p>The pros for this pattern are:
  * It enhances CPU cache affinity and eliminates unbound allocation and data buffer sharing between
@@ -54,12 +48,12 @@ import java.util.concurrent.TimeUnit;
  * the Thread-Specific Storage pattern [22] to allocate memory. It minimizes locking overhead by not
  * exchanging data between threads, thereby reducing thread synchronization. In bound handle/thread
  * associations, the leader thread dispatches the event based on the I/O handle. It can minimize
- * priority inversion because no extra queuing is introduced in the server It does not require a
+ * priority inversion because no extra queuing is introduced in the server. It does not require a
  * context switch to handle each event, reducing the event dispatching latency. Note that promoting
  * a follower thread to fulfill the leader role requires a context switch. Programming simplicity:
  * The Leader/Follower pattern simplifies the programming of concurrency models where multiple
- * threads can receive requests, process responses, and demultiplex connections using a shared
- * handle set. The cons are: complex, network IO can be a bottleneck, Lack of flexibility
+ * threads can receive requests, process responses, and de-multiplex connections using a shared
+ * handle set.
  */
 public class App {
 

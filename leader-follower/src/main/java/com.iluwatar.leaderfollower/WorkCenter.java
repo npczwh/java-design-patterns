@@ -27,10 +27,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Represents the WorkCenter for the Leader Follower pattern. Contains a leader and a list of idle
- * workers. The leader is responsible for receiving work when it arrives. This class also provides a
- * mechanism to promote a new leader. A worker once he completes his task will add himself back to
- * the station.
+ * A WorkCenter contains a leader and a list of idle workers. The leader is responsible for
+ * receiving work when it arrives. This class also provides a mechanism to promote a new leader. A
+ * worker once he completes his task will add himself back to the center.
  */
 public class WorkCenter {
 
