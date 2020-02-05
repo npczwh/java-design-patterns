@@ -77,7 +77,7 @@ public class Worker implements Runnable {
     if (!(o instanceof Worker)) {
       return false;
     }
-    Worker worker = (Worker) o;
+    var worker = (Worker) o;
     return id == worker.id;
   }
 

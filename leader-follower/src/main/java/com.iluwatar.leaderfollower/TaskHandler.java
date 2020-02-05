@@ -32,7 +32,7 @@ public class TaskHandler {
    * The TaskHandler interface handles one task at a time.
    */
   public void handleTask(Task task) throws InterruptedException {
-    int time = task.getTime();
+    var time = task.getTime();
     Thread.sleep(time);
     System.out.println("It takes " + time + " milliseconds to finish the task");
     task.setFinished();

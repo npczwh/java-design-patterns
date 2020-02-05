@@ -68,9 +68,9 @@ public class App {
    * The main method for the leader follower pattern.
    */
   public static void main(String[] args) throws InterruptedException {
-    TaskSet taskSet = new TaskSet();
-    TaskHandler taskHandler = new TaskHandler();
-    Manager manager = new Manager();
+    var taskSet = new TaskSet();
+    var taskHandler = new TaskHandler();
+    var manager = new Manager();
     manager.createWorkers(4, taskSet, taskHandler);
     execute(manager, taskSet);
   }
@@ -80,8 +80,8 @@ public class App {
    */
   public static void execute(Manager manager, TaskSet taskSet) throws InterruptedException {
     List<Worker> workers = manager.getWorkers();
-    ExecutorService exec = Executors.newFixedThreadPool(workers.size());
-    for (Worker worker : workers) {
+    var exec = Executors.newFixedThreadPool(workers.size());
+    for (var worker : workers) {
       exec.submit(worker);
     }
     addTasks(taskSet);
@@ -94,9 +94,9 @@ public class App {
    * Add tasks.
    */
   public static void addTasks(TaskSet taskSet) throws InterruptedException {
-    Random rand = new Random();
-    for (int i = 0; i < 5; i++) {
-      int time = Math.abs(rand.nextInt(1000));
+    var rand = new Random();
+    for (var i = 0; i < 5; i++) {
+      var time = Math.abs(rand.nextInt(1000));
       taskSet.addTask(new Task(time));
     }
   }
