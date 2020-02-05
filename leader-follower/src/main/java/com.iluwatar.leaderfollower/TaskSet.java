@@ -27,7 +27,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * The {@link TaskSet} class. All work arrive here, workers receive work from here.
+ * A TaskSet is a collection of the tasks, the leader receives task from here.
  */
 public class TaskSet {
 

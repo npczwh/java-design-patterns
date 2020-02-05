@@ -24,12 +24,12 @@
 package com.iluwatar.leaderfollower;
 
 /**
- * The TaskHandler is used by the {@link Worker} to process the newly arrived work.
+ * The TaskHandler is used by the {@link Worker} to process the newly arrived task.
  */
 public class TaskHandler {
 
   /**
-   * The TaskHandler interface handles one task at a time.
+   * This interface handles one task at a time.
    */
   public void handleTask(Task task) throws InterruptedException {
     var time = task.getTime();

@@ -33,7 +33,7 @@ public class Worker implements Runnable {
   private final TaskHandler taskHandler;
 
   /**
-   * Constructor to create a worker which will take work from the work station.
+   * Constructor to create a worker which will take work from the work center.
    */
   public Worker(long id, WorkCenter workCenter, TaskSet queue, TaskHandler taskHandler) {
     super();
@@ -43,6 +43,10 @@ public class Worker implements Runnable {
     this.taskHandler = taskHandler;
   }
 
+  /**
+   * The leader thread listens for task. When task arrives, it promotes one of the followers to be
+   * the new leader. Then it handles the task and add himself back to work center.
+   */
   @Override
   public void run() {
     while (!Thread.interrupted()) {
