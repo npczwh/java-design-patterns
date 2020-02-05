@@ -33,14 +33,14 @@ public class TaskSetTest {
 
     @Test
     public void testAddTask() throws InterruptedException {
-        TaskSet taskSet = new TaskSet();
+        var taskSet = new TaskSet();
         taskSet.addTask(new Task(10));
         Assert.assertTrue(taskSet.getQueue().size() == 1);
     }
 
     @Test
     public void testGetTask() throws InterruptedException {
-        TaskSet taskSet = new TaskSet();
+        var taskSet = new TaskSet();
         taskSet.addTask(new Task(100));
         Task task = taskSet.getTask();
         Assert.assertTrue(task.time == 100);
