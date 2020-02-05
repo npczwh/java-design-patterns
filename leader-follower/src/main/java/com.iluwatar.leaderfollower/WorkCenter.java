@@ -32,12 +32,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * mechanism to promote a new leader. A worker once he completes his task will add himself back to
  * the station.
  */
-public class Manager {
+public class WorkCenter {
 
   private Worker leader;
   private List<Worker> workers = new CopyOnWriteArrayList<>();
 
-  public Manager() {
+  public WorkCenter() {
   }
 
   /**
