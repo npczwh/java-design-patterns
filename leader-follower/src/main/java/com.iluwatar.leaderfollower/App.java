@@ -25,7 +25,6 @@ package com.iluwatar.leaderfollower;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -45,7 +44,7 @@ import java.util.concurrent.TimeUnit;
  * <p>In this example we use ThreadPool which basically acts as the ThreadPool. One of the
  * Workers becomes Leader and listens on the {@link TaskSet} for work. {@link TaskSet} basically
  * acts as the source of input events for the {@link Worker}, who are spawned and controlled by the
- * {@link Manager} . When {@link Task} arrives then the leader takes the work and calls the
+ * {@link WorkCenter} . When {@link Task} arrives then the leader takes the work and calls the
  * {@link TaskHandler}. However it also selects one of the waiting Workers as leader, who can then
  * process the next work and so on.
  *
@@ -70,16 +69,16 @@ public class App {
   public static void main(String[] args) throws InterruptedException {
     var taskSet = new TaskSet();
     var taskHandler = new TaskHandler();
-    var manager = new Manager();
-    manager.createWorkers(4, taskSet, taskHandler);
-    execute(manager, taskSet);
+    var workCenter = new WorkCenter();
+    workCenter.createWorkers(4, taskSet, taskHandler);
+    execute(workCenter, taskSet);
   }
 
   /**
    * Start the work, dispatch tasks and stop the thread pool at last.
    */
-  public static void execute(Manager manager, TaskSet taskSet) throws InterruptedException {
-    List<Worker> workers = manager.getWorkers();
+  public static void execute(WorkCenter workCenter, TaskSet taskSet) throws InterruptedException {
+    List<Worker> workers = workCenter.getWorkers();
     var exec = Executors.newFixedThreadPool(workers.size());
     for (var worker : workers) {
       exec.submit(worker);

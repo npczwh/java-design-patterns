@@ -27,36 +27,36 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for Manager
+ * Tests for WorkCenter
  */
-public class ManagerTest {
+public class WorkCenterTest {
 
   @Test
   public void testCreateWorkers() {
     TaskSet taskSet = new TaskSet();
     TaskHandler taskHandler = new TaskHandler();
-    Manager manager = new Manager();
-    manager.createWorkers(5, taskSet, taskHandler);
-    Assert.assertEquals(manager.getWorkers().size(), 5);
-    Assert.assertEquals(manager.getWorkers().get(0), manager.getLeader());
+    WorkCenter workCenter = new WorkCenter();
+    workCenter.createWorkers(5, taskSet, taskHandler);
+    Assert.assertEquals(workCenter.getWorkers().size(), 5);
+    Assert.assertEquals(workCenter.getWorkers().get(0), workCenter.getLeader());
   }
 
   @Test
   public void testNullLeader() {
-    Manager manager = new Manager();
-    manager.promoteLeader();
-    Assert.assertNull(manager.getLeader());
+    WorkCenter workCenter = new WorkCenter();
+    workCenter.promoteLeader();
+    Assert.assertNull(workCenter.getLeader());
   }
 
   @Test
   public void testPromoteLeader() {
     TaskSet taskSet = new TaskSet();
     TaskHandler taskHandler = new TaskHandler();
-    Manager manager = new Manager();
-    manager.createWorkers(5, taskSet, taskHandler);
-    manager.removeWorker(manager.getLeader());
-    manager.promoteLeader();
-    Assert.assertEquals(manager.getWorkers().size(), 4);
-    Assert.assertEquals(manager.getWorkers().get(0), manager.getLeader());
+    WorkCenter workCenter = new WorkCenter();
+    workCenter.createWorkers(5, taskSet, taskHandler);
+    workCenter.removeWorker(workCenter.getLeader());
+    workCenter.promoteLeader();
+    Assert.assertEquals(workCenter.getWorkers().size(), 4);
+    Assert.assertEquals(workCenter.getWorkers().get(0), workCenter.getLeader());
   }
 }

@@ -28,17 +28,17 @@ import java.util.Objects;
 public class Worker implements Runnable {
 
   private final long id;
-  private final Manager manager;
+  private final WorkCenter workCenter;
   private final TaskSet taskSet;
   private final TaskHandler taskHandler;
 
   /**
    * Constructor to create a worker which will take work from the work station.
    */
-  public Worker(long id, Manager manager, TaskSet queue, TaskHandler taskHandler) {
+  public Worker(long id, WorkCenter workCenter, TaskSet queue, TaskHandler taskHandler) {
     super();
     this.id = id;
-    this.manager = manager;
+    this.workCenter = workCenter;
     this.taskSet = queue;
     this.taskHandler = taskHandler;
   }
@@ -47,21 +47,21 @@ public class Worker implements Runnable {
   public void run() {
     while (!Thread.interrupted()) {
       try {
-        if (manager.getLeader() != null && !manager.getLeader().equals(this)) {
-          synchronized (manager) {
-            manager.wait();
+        if (workCenter.getLeader() != null && !workCenter.getLeader().equals(this)) {
+          synchronized (workCenter) {
+            workCenter.wait();
           }
         }
         System.out.println("Leader: " + id);
         final Task task = taskSet.getTask();
-        synchronized (manager) {
-          manager.removeWorker(this);
-          manager.promoteLeader();
-          manager.notifyAll();
+        synchronized (workCenter) {
+          workCenter.removeWorker(this);
+          workCenter.promoteLeader();
+          workCenter.notifyAll();
         }
         taskHandler.handleTask(task);
         System.out.println("The Worker with the ID " + id + " completed the task");
-        manager.addWorker(this);
+        workCenter.addWorker(this);
       } catch (InterruptedException e) {
         System.out.println("Worker interrupted");
         return;
