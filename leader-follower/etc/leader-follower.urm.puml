@@ -2,65 +2,54 @@
 package com.iluwatar.leaderfollower {
   class App {
     + App()
+    - addTasks(taskSet : TaskSet) {static}
+    - execute(workCenter : WorkCenter, taskSet : TaskSet) {static}
     + main(args : String[]) {static}
   }
-  class ConcreteEventHandler {
-    + ConcreteEventHandler()
-    + handleEvent(handle : Handle)
+  class Task {
+    - finished : boolean
+    - time : int
+    + Task(time : int)
+    + getTime() : int
+    + isFinished() : boolean
+    + setFinished()
   }
-  interface EventHandler {
-    + handleEvent(Handle) {abstract}
+  class TaskHandler {
+    + TaskHandler()
+    + handleTask(task : Task)
   }
-  interface Handle {
-    + getPayLoad() : int {abstract}
-    + isHandled() : boolean {abstract}
-    + setHandled() {abstract}
+  class TaskSet {
+    - queue : BlockingQueue<Task>
+    + TaskSet()
+    + addTask(task : Task)
+    + getSize() : int
+    + getTask() : Task
   }
-  class HandleSet {
-    - queue : BlockingQueue<Work>
-    + HandleSet()
-    + fireEvent(input : Work)
-    + getPayLoad() : Work
-    + getQueue() : BlockingQueue<Work>
-  }
-  class Work {
-    + time : int
-    - handled : boolean
-    + Work(time : int)
-    + getPayLoad() : int
-    + isHandled() : boolean
-    + setHandled()
-  }
-  class WorkStation {
-    - executorService : ExecutorService
+  class WorkCenter {
     - leader : Worker
     - workers : List<Worker>
-    + WorkStation(executorService : ExecutorService)
+    + WorkCenter()
     + addWorker(worker : Worker)
+    + createWorkers(numberOfWorkers : int, taskSet : TaskSet, taskHandler : TaskHandler)
     + getLeader() : Worker
     + getWorkers() : List<Worker>
-    + setLeader(leader : Worker)
-    + startWork()
+    + promoteLeader()
+    + removeWorker(worker : Worker)
   }
   class Worker {
-    - taskHandler : ConcreteEventHandler
-    - taskSet : HandleSet
     - id : long
-    - workers : List<Worker>
-    - workCenter : WorkStation
-    + Worker(queue : HandleSet, workers : List<Worker>, id : long, workCenter : WorkStation, taskHandler : ConcreteEventHandler)
-    + becomeLeader()
-    + equals(obj : Object) : boolean
+    - taskHandler : TaskHandler
+    - taskSet : TaskSet
+    - workCenter : WorkCenter
+    + Worker(id : long, workCenter : WorkCenter, taskSet : TaskSet, taskHandler : TaskHandler)
+    + equals(o : Object) : boolean
     + hashCode() : int
     + run()
   }
 }
-HandleSet -->  "-queue" Work
-Worker -->  "-taskSet" HandleSet
-Worker -->  "-taskHandler" ConcreteEventHandler
-Worker -->  "-workers" Worker
-Worker -->  "-workCenter" WorkStation
-Worker -->  "-workCenter" WorkStation
-ConcreteEventHandler ..|> EventHandler 
-Work ..|> Handle 
+Worker -->  "-taskSet" TaskSet
+Worker -->  "-taskHandler" TaskHandler
+TaskSet -->  "-queue" Task
+Worker -->  "-workCenter" WorkCenter
+Worker -->  "-workCenter" WorkCenter
 @enduml

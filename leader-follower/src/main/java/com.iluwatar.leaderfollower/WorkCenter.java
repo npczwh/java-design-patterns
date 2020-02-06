@@ -36,9 +36,6 @@ public class WorkCenter {
   private Worker leader;
   private List<Worker> workers = new CopyOnWriteArrayList<>();
 
-  public WorkCenter() {
-  }
-
   /**
    * Create workers and set leader.
    */
