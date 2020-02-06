@@ -71,7 +71,7 @@ public class App {
   /**
    * Start the work, dispatch tasks and stop the thread pool at last.
    */
-  public static void execute(WorkCenter workCenter, TaskSet taskSet) throws InterruptedException {
+  private static void execute(WorkCenter workCenter, TaskSet taskSet) throws InterruptedException {
     List<Worker> workers = workCenter.getWorkers();
     var exec = Executors.newFixedThreadPool(workers.size());
     for (var worker : workers) {
@@ -86,7 +86,7 @@ public class App {
   /**
    * Add tasks.
    */
-  public static void addTasks(TaskSet taskSet) throws InterruptedException {
+  private static void addTasks(TaskSet taskSet) throws InterruptedException {
     var rand = new Random();
     for (var i = 0; i < 5; i++) {
       var time = Math.abs(rand.nextInt(1000));

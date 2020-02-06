@@ -28,7 +28,7 @@ package com.iluwatar.leaderfollower;
  */
 public class Task {
 
-  public final int time;
+  private final int time;
 
   private boolean finished;
 

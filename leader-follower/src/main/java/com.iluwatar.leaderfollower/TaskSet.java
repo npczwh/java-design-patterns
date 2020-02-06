@@ -33,15 +33,15 @@ public class TaskSet {
 
   private BlockingQueue<Task> queue = new ArrayBlockingQueue<>(100);
 
-  public void addTask(Task input) throws InterruptedException {
-    queue.put(input);
+  public void addTask(Task task) throws InterruptedException {
+    queue.put(task);
   }
 
   public Task getTask() throws InterruptedException {
     return queue.take();
   }
 
-  public BlockingQueue<Task> getQueue() {
-    return queue;
+  public int getSize() {
+    return queue.size();
   }
 }

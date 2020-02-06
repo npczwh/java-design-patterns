@@ -35,7 +35,7 @@ public class TaskSetTest {
     public void testAddTask() throws InterruptedException {
         var taskSet = new TaskSet();
         taskSet.addTask(new Task(10));
-        Assert.assertTrue(taskSet.getQueue().size() == 1);
+        Assert.assertTrue(taskSet.getSize() == 1);
     }
 
     @Test
@@ -43,8 +43,8 @@ public class TaskSetTest {
         var taskSet = new TaskSet();
         taskSet.addTask(new Task(100));
         Task task = taskSet.getTask();
-        Assert.assertTrue(task.time == 100);
-        Assert.assertTrue(taskSet.getQueue().size() == 0);
+        Assert.assertTrue(task.getTime() == 100);
+        Assert.assertTrue(taskSet.getSize() == 0);
     }
 
 }
