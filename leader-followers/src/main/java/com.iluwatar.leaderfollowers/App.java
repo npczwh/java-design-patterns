@@ -51,14 +51,14 @@ import java.util.concurrent.TimeUnit;
  * priority inversion because no extra queuing is introduced in the server. It does not require a
  * context switch to handle each event, reducing the event dispatching latency. Note that promoting
  * a follower thread to fulfill the leader role requires a context switch. Programming simplicity:
- * The Leader/Follower pattern simplifies the programming of concurrency models where multiple
+ * The Leader/Followers pattern simplifies the programming of concurrency models where multiple
  * threads can receive requests, process responses, and de-multiplex connections using a shared
  * handle set.
  */
 public class App {
 
   /**
-   * The main method for the leader follower pattern.
+   * The main method for the leader followers pattern.
    */
   public static void main(String[] args) throws InterruptedException {
     var taskSet = new TaskSet();
