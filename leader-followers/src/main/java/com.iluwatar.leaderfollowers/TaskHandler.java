@@ -21,22 +21,21 @@
  * THE SOFTWARE.
  */
 
-package com.iluwatar.leaderfollower;
-
-import org.junit.Assert;
-import org.junit.Test;
+package com.iluwatar.leaderfollowers;
 
 /**
- * Tests for TaskHandler
+ * The TaskHandler is used by the {@link Worker} to process the newly arrived task.
  */
-public class TaskHandlerTest {
+public class TaskHandler {
 
-    @Test
-    public void testHandleTask() throws InterruptedException {
-        var taskHandler = new TaskHandler();
-        var handle = new Task(100);
-        taskHandler.handleTask(handle);
-        Assert.assertTrue(handle.isFinished());
-    }
+  /**
+   * This interface handles one task at a time.
+   */
+  public void handleTask(Task task) throws InterruptedException {
+    var time = task.getTime();
+    Thread.sleep(time);
+    System.out.println("It takes " + time + " milliseconds to finish the task");
+    task.setFinished();
+  }
 
 }

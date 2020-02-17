@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-package com.iluwatar.leaderfollower;
+package com.iluwatar.leaderfollowers;
 
 /**
  * A unit of work to be processed by the Workers.
