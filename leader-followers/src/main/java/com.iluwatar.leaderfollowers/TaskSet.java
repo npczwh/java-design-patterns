@@ -21,21 +21,27 @@
  * THE SOFTWARE.
  */
 
-package com.iluwatar.leaderfollower;
+package com.iluwatar.leaderfollowers;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
- * The TaskHandler is used by the {@link Worker} to process the newly arrived task.
+ * A TaskSet is a collection of the tasks, the leader receives task from here.
  */
-public class TaskHandler {
+public class TaskSet {
 
-  /**
-   * This interface handles one task at a time.
-   */
-  public void handleTask(Task task) throws InterruptedException {
-    var time = task.getTime();
-    Thread.sleep(time);
-    System.out.println("It takes " + time + " milliseconds to finish the task");
-    task.setFinished();
+  private BlockingQueue<Task> queue = new ArrayBlockingQueue<>(100);
+
+  public void addTask(Task task) throws InterruptedException {
+    queue.put(task);
   }
 
+  public Task getTask() throws InterruptedException {
+    return queue.take();
+  }
+
+  public int getSize() {
+    return queue.size();
+  }
 }

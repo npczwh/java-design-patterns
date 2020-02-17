@@ -21,27 +21,30 @@
  * THE SOFTWARE.
  */
 
-package com.iluwatar.leaderfollower;
+package com.iluwatar.leaderfollowers;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * A TaskSet is a collection of the tasks, the leader receives task from here.
+ * Tests for TaskSet
  */
-public class TaskSet {
+public class TaskSetTest {
 
-  private BlockingQueue<Task> queue = new ArrayBlockingQueue<>(100);
+    @Test
+    public void testAddTask() throws InterruptedException {
+        var taskSet = new TaskSet();
+        taskSet.addTask(new Task(10));
+        Assert.assertTrue(taskSet.getSize() == 1);
+    }
 
-  public void addTask(Task task) throws InterruptedException {
-    queue.put(task);
-  }
+    @Test
+    public void testGetTask() throws InterruptedException {
+        var taskSet = new TaskSet();
+        taskSet.addTask(new Task(100));
+        Task task = taskSet.getTask();
+        Assert.assertTrue(task.getTime() == 100);
+        Assert.assertTrue(taskSet.getSize() == 0);
+    }
 
-  public Task getTask() throws InterruptedException {
-    return queue.take();
-  }
-
-  public int getSize() {
-    return queue.size();
-  }
 }

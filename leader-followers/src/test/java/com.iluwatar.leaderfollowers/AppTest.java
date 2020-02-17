@@ -21,42 +21,23 @@
  * THE SOFTWARE.
  */
 
-package com.iluwatar.leaderfollower;
+package com.iluwatar.leaderfollowers;
 
-import org.junit.Assert;
+import java.io.IOException;
+
 import org.junit.Test;
 
 /**
- * Tests for WorkCenter
+ *
+ * Application test
+ *
  */
-public class WorkCenterTest {
+public class AppTest {
 
-  @Test
-  public void testCreateWorkers() {
-    var taskSet = new TaskSet();
-    var taskHandler = new TaskHandler();
-    var workCenter = new WorkCenter();
-    workCenter.createWorkers(5, taskSet, taskHandler);
-    Assert.assertEquals(workCenter.getWorkers().size(), 5);
-    Assert.assertEquals(workCenter.getWorkers().get(0), workCenter.getLeader());
-  }
+    @Test
+    public void test() throws InterruptedException {
+        String[] args = {};
+        App.main(args);
+    }
 
-  @Test
-  public void testNullLeader() {
-    var workCenter = new WorkCenter();
-    workCenter.promoteLeader();
-    Assert.assertNull(workCenter.getLeader());
-  }
-
-  @Test
-  public void testPromoteLeader() {
-    var taskSet = new TaskSet();
-    var taskHandler = new TaskHandler();
-    var workCenter = new WorkCenter();
-    workCenter.createWorkers(5, taskSet, taskHandler);
-    workCenter.removeWorker(workCenter.getLeader());
-    workCenter.promoteLeader();
-    Assert.assertEquals(workCenter.getWorkers().size(), 4);
-    Assert.assertEquals(workCenter.getWorkers().get(0), workCenter.getLeader());
-  }
 }

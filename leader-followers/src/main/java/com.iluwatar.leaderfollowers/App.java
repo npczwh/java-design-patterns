@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-package com.iluwatar.leaderfollower;
+package com.iluwatar.leaderfollowers;
 
 import java.util.List;
 import java.util.Random;
