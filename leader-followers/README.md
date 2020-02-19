@@ -9,12 +9,12 @@ tags:
 ---
 
 ## Intent
-The Half-Sync/Half-Async pattern decouples synchronous I/O from
-asynchronous I/O in a system to simplify concurrent programming effort without
-degrading execution efficiency.
+The Leader/Followers pattern provides a concurrency model where multiple 
+threads can efficiently de-multiplex events and dispatch event handlers 
+that process I/O handles shared by the threads.
 
 ## Class diagram
-![Half-Sync/Half-Async class diagram](./etc/half-sync-half-async.png)
+![Leader/Followers class diagram](./etc/leader-followers.png)
 
 ## Applicability
 Use Leader-Followers pattern when
@@ -27,9 +27,9 @@ Use Leader-Followers pattern when
 
 ## Real world examples
 
-* [BSD Unix networking subsystem](https://www.dre.vanderbilt.edu/~schmidt/PDF/PLoP-95.pdf)
-* [Real Time CORBA](http://www.omg.org/news/meetings/workshops/presentations/realtime2001/4-3_Pyarali_thread-pool.pdf)
-* [Android AsyncTask framework](http://developer.android.com/reference/android/os/AsyncTask.html)
+* [ACE Thread Pool Reactor framework](https://www.dre.vanderbilt.edu/~schmidt/PDF/HPL.pdf)
+* [JAWS](http://www.dre.vanderbilt.edu/~schmidt/PDF/PDCP.pdf)
+* [Real-time CORBA](http://www.dre.vanderbilt.edu/~schmidt/PDF/RTS.pdf)
 
 ## Credits
 

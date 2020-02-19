@@ -51,5 +51,4 @@ Worker -->  "-taskSet" TaskSet
 Worker -->  "-taskHandler" TaskHandler
 TaskSet -->  "-queue" Task
 Worker -->  "-workCenter" WorkCenter
-Worker -->  "-workCenter" WorkCenter
 @enduml
