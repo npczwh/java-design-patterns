@@ -19,11 +19,7 @@ that process I/O handles shared by the threads.
 ## Applicability
 Use Leader-Followers pattern when
 
-* a system possesses following characteristics:
-  * the system must perform tasks in response to external events that occur asynchronously, like hardware interrupts in OS
-  * it is inefficient to dedicate separate thread of control to perform synchronous I/O for each external source of event
-  * the higher level tasks in the system can be simplified significantly if I/O is performed synchronously.
-* one or more tasks in a system must run in a single thread of control, while other tasks may benefit from multi-threading.
+* multiple threads take turns sharing a set of event sources in order to detect, de-multiplex, dispatch and process service requests that occur on the event sources.
 
 ## Real world examples
 
